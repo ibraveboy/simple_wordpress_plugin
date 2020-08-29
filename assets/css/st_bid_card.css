@@ -1,0 +1,175 @@
+.simple-trading-bid-card .bid-header{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.simple-trading-bid-card .bid-header.profit{
+  background-color: #22bb33;
+}
+
+.simple-trading-bid-card .bid-header.loss{
+  background-color: #bb2124;
+}
+
+.simple-trading-bid-card .bid-header .pl-amount, .simple-trading-bid-card .bid-header .stock{
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  text-transform: capitalize;
+}
+
+.simple-trading-bid-card .detail{
+  padding-left: 15px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.simple-trading-bid-card .detail .personal{
+  display: flex;
+  margin-right: 5px;
+}
+
+.simple-trading-bid-card .detail .personal .image{
+  width: 50px;
+}
+
+.simple-trading-bid-card .detail .personal .image img{
+  width: 100%;
+}
+
+.simple-trading-bid-card .detail .personal .content{
+  margin-left: 10px;
+}
+
+.simple-trading-bid-card .detail .personal .content .title{
+  color: #22bb33;
+  margin: 0;
+  padding: 0;
+}
+
+.simple-trading-bid-card {
+  background-color: white;
+}
+
+.simple-trading-bid-card .detail .personal .content .comment{
+  margin: 5px 0 0 0;
+  padding: 0;
+}
+
+.simple-trading-bid-card .detail .picture{
+  width: 100px;
+}
+
+.simple-trading-bid-card .detail .picture img{
+  width: 100%;
+}
+
+.simple-trading-bid-card .reactions{
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.simple-trading-bid-card .reactions > span{
+  margin-left: 10px;
+}
+
+.simple-trading-bid-card .reactions > span > span{
+  cursor: pointer;
+}
+
+.simple-trading-bid-card .reactions > span > .icon-dislike::before, .simple-trading-bid-card .reactions > span > .icon-heart::before{
+  color: #bb2124;
+}
+
+.simple-trading-bid-card .reactions > span > .icon-like::before{
+  color: #22bb33;
+}
+
+.simple-trading-bid-card .view-btn{
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 15px;
+}
+
+.simple-trading-bid-card .view-btn a{
+  background-color: #22bb33;
+  color: white;
+  padding: 3px 0px;
+  width: 70px;
+  text-align: center;
+  font-weight:bolder;
+  border-radius: 5px;
+}
+
+.simple-trading-single-bid{
+  background-color: #f9f9f9;
+}
+
+.simple-trading-single-bid .simple-trading-bid-card{
+  border-bottom: 1px solid lightgray;
+}
+
+.simple-trading-single-bid .st-table{
+  padding: 20px 10px;
+  background-color: white;
+  margin-top: 20px;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+.simple-trading-single-bid .reactions{
+  border:none !important;
+}
+
+.simple-trading-single-bid .view-btn{
+  display: none !important;
+}
+
+.simple-trading-single-bid .st-table table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.simple-trading-single-bid .st-table table th, .simple-trading-single-bid .st-table table td {
+  text-align: left;
+  padding: 5px 0px;
+}
+
+.simple-trading-single-bid .st-table table tr:first-child th, .simple-trading-single-bid .st-table table tr td:nth-child(2){
+  text-align: center;
+}
+
+.simple-trading-single-bid .st-table table tr td:last-child{
+  text-align: right;
+}
+
+.simple-trading-single-bid .st-table table tr th{
+  font-weight: bolder;
+}
+
+.simple-trading-single-bid .st-table table tr{border-bottom:1px solid #f2f2f2;}
+
+.simple-trading-single-bid .st-table table tr:last-child{border-bottom:none;}
+
+.simple-trading-single-bid .st-table .two-column td:first-child{
+  padding-left: 10px;
+}
+
+.simple-trading-single-bid .st-table .two-column tr td:last-child{
+  text-align: right;
+  padding-right: 10px;
+}
+
+.simple-trading-single-bid .st-table .two-column .percentage{
+  background-color: #22bb33;
+  padding-left: 3px;
+  padding-right: 3px;
+  color: white;
+  border-radius: 25px;
+}

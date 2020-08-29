@@ -1,0 +1,30 @@
+.simple-trading-heading{
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+.st_container #comments{
+  margin-top: 0;
+}
+
+.st_container .row{
+  margin-top: 10px;
+}
+
+.simple-trading-error, .simple-trading-sucess{
+  padding: 5px;
+  border: 2px solid #bb2124;
+}
+
+.simple-trading-sucess{
+  border: 2px solid #22bb33;
+}
+
+.simple-trading-error p, .simple-trading-sucess p{
+  padding: 0;
+  margin: 0;
+  color: #22bb33;
+}
+
+.simple-trading-error p{
+  color: #bb2124;
+}
