@@ -173,3 +173,11 @@
   color: white;
   border-radius: 25px;
 }
+
+.simple-trading-single-bid .st-table .two-column .percentage.profit{
+  background-color: #22bb33;
+}
+
+.simple-trading-single-bid .st-table .two-column .percentage.loss{
+  background-color: #bb2124;
+}

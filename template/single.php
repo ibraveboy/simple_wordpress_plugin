@@ -14,12 +14,19 @@ if(isset($_GET['bid_id'])){
     $symbol = $row['symbol'];
     $comment = $row['comments'];
     $picture = $row['picture'];
+    $chart = $row['chart'];
     $entry_date = $row['entry_date'];
+    $entry_date = explode(" ",$entry_date);
+    $entry_date = $entry_date[0];
     $exit_date = $row['exit_date'];
+    $exit_date = explode(" ",$exit_date);
+    $exit_date = $exit_date[0];
     $entry_price = $row['entry_price'];
     $exit_price = $row['exit_price'];
     $strike = $row['strike_price'];
     $expiration_date = $row['expiration_date'];
+    $expiration_date = explode(" ",$expiration_date);
+    $expiration_date = $expiration_date[0];
     $position_size = $row['position_size'];
     $pl_percentage = $row['pl_percentage'];
     $profit = false;
@@ -36,10 +43,13 @@ if(isset($_GET['bid_id'])){
     if($type == "long"){
       if($pl_amount > 0){
         $profit = true;
+      }else{
+        $pl_amount = floatval($pl_amount) * -1;
       }
     }else{
       if($pl_amount < 0){
         $profit = true;
+        $pl_amount = floatval($pl_amount) * -1;
       }
     }
     ?>
@@ -48,6 +58,12 @@ if(isset($_GET['bid_id'])){
     include plugin_dir_path( __FILE__ ) . './bid.php';
     include plugin_dir_path( __FILE__ ) . './table.php';
     ?>
+    <div class="chart-img">
+       <img src="<?php echo $chart; ?>" /> 
+    </div>
+    <div class="picture-img">
+       <img src="<?php echo $picture; ?>" /> 
+    </div>
     </div>
     <?php
   }else{

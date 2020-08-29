@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <td>Percentage</td>
-      <td><span class="percentage"><?php echo $pl_percentage; ?></span></td>
+      <td><span class="percentage <?php echo $profit ? "profit":"loss"; ?>"> <?php echo $profit ? "":"-"; ?> <?php echo $pl_percentage; ?></span></td>
     </tr>
     <tr>
       <td>Strike</td>

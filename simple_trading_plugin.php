@@ -25,19 +25,18 @@ You should have received a copy of the GNU General Public License
 along with SIMPLE TRADING. If not, see  https://www.gnu.org/licenses/gpl-2.0.html
 */
 
-
 // To display error message
 function display_error_message($msg){
   $error = $msg;
   include plugin_dir_path( __FILE__ ) . './template/error.php';
 }
 
-function simple_trading_create_tables(){
-  
-  global $wpdb;
-  $table_name = $wpdb->prefix . "customsimpletrading";
-  $charset_collate = $wpdb->get_charset_collate();
-  $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+function simple_trading_activation(){
+    
+    global $wpdb;
+    $table_name = $wpdb->prefix . "customsimpletrading";
+    $charset_collate = $wpdb->get_charset_collate();
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
     id mediumint(9) NOT NULL AUTO_INCREMENT,
     symbol text,
     chart text, 
@@ -58,12 +57,12 @@ function simple_trading_create_tables(){
     PRIMARY KEY  (id)
   ) $charset_collate;";
 
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-dbDelta( $sql );
+  require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+  dbDelta( $sql );
 
 }
 
-register_activation_hook( __FILE__, 'simple_trading_create_tables' );
+register_activation_hook( __FILE__, 'simple_trading_activation' );
 
 function simple_trading_deactivation(){
   remove_shortcode('render_simple_trading_form');
@@ -99,6 +98,8 @@ function load_trading_form(){
       $_chart = $_FILES['chart'];
       $_picture = $_FILES['picture'];
       if( !empty($_symbol) && !empty($_entry_date) && !empty($_exit_date) && !empty($_entry_price) && !empty($_exit_price) && !empty($_position_size) && !empty($_type) && !empty($_stock) && !empty($_comments) && !empty($_strike_price) && !empty($_expiration_date) && !empty($_chart) && !empty($_picture) && is_numeric($_entry_price) && is_numeric($_exit_price) && is_numeric($_strike_price) ){
+
+        $real_profit_loss = $_stock == "option" ? (floatval($_position_size) * floatval($_entry_price)):(floatval($_position_size) * floatval($_entry_price) * 100);
         $uploadchart = wp_upload_bits($_chart["name"], null, file_get_contents($_chart["tmp_name"]));
         $uploadpicture = wp_upload_bits($_picture["name"], null, file_get_contents($_picture["tmp_name"]));
         if(empty($uploadchart['error']) && empty($uploadpicture['error'])){
@@ -116,15 +117,15 @@ function load_trading_form(){
           $_pl_percentage = strval($_pl_percentage) . "%";
           $result = $wpdb->query(
             $wpdb->prepare(
-              "
-              INSERT INTO $table_name
-              (symbol, chart, entry_date, exit_date, entry_price, exit_price, type, stock, pl_amount, pl_percentage, strike_price, expiration_date, picture, position_size, comments, userid)
-              VALUES ( %s, %s, %s, %s, %f, %f, %s, %s, %f, %s, %f, %s, %s, %s, %s, %d )
-              ",
-              array(
-                $_symbol,
-                $_chart_url,
-                $_entry_date,
+            "
+            INSERT INTO $table_name
+            (symbol, chart, entry_date, exit_date, entry_price, exit_price, type, stock, pl_amount, pl_percentage, strike_price, expiration_date, picture, position_size, comments, userid)
+            VALUES ( %s, %s, %s, %s, %f, %f, %s, %s, %f, %s, %f, %s, %s, %s, %s, %s )
+            ",
+            array(
+                  $_symbol,
+                  $_chart_url,
+                  $_entry_date,
                   $_exit_date,
                   $_entry_price,
                   $_exit_price,
@@ -156,7 +157,6 @@ function load_trading_form(){
       }
     }
     include plugin_dir_path( __FILE__ ) . './template/form.php';
-
   }else{
     auth_redirect();
   }
@@ -195,10 +195,13 @@ function load_current_user_bids(){
         if($type == "long"){
           if($pl_amount > 0){
             $profit = true;
+          }else{
+            $pl_amount = floatval($pl_amount) * -1;
           }
         }else{
           if($pl_amount < 0){
             $profit = true;
+            $pl_amount = floatval($pl_amount) * -1;
           }
         }
         include plugin_dir_path( __FILE__ ) . './template/bid.php';
@@ -211,10 +214,10 @@ function load_current_user_bids(){
       <?php
     }
 
+    $wpdb->flush();
   }else{
-    auth_redirect();
+    auth_redirect();  
   }
-  $wpdb->flush();
 }
 
 add_shortcode('simple_trading_all', 'load_all_users_bids');
@@ -247,10 +250,13 @@ function load_all_users_bids(){
       if($type == "long"){
         if($pl_amount > 0){
           $profit = true;
+        }else{
+          $pl_amount = floatval($pl_amount) * -1;
         }
       }else{
         if($pl_amount < 0){
           $profit = true;
+          $pl_amount = floatval($pl_amount) * -1;
         }
       }
       include plugin_dir_path( __FILE__ ) . './template/bid.php';
